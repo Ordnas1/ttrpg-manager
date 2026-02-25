@@ -1,0 +1,17 @@
+name: ttrpg-manager
+
+services:
+  db:
+    image: postgres:18.2
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql
+    environment:
+      POSTGRES_PASSWORD: example
+      POSTGRES_USER: postgres
+      POSTGRES_DB: ttrpg_manager
+
+volumes:
+  db_data:
