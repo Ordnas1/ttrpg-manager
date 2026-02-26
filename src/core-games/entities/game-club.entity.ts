@@ -10,8 +10,8 @@ import {
 
 @Entity()
 export class GameClub {
-  @PrimaryGeneratedColumn()
-  id!: number;
+  @PrimaryGeneratedColumn('uuid')
+  id!: string;
 
   @Column({ length: 255 })
   name!: string;

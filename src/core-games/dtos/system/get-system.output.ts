@@ -4,4 +4,5 @@ export class GetSystemDTO {
   edition?: string;
   publisher?: string;
   description?: string;
+  releaseDate!: Date;
 }

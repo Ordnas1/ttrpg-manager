@@ -19,8 +19,8 @@ export enum GameStatus {
 
 @Entity()
 export class Game {
-  @PrimaryGeneratedColumn()
-  id!: number;
+  @PrimaryGeneratedColumn('uuid')
+  id!: string;
 
   @Column({ length: 80 })
   name!: string;

@@ -11,6 +11,7 @@ export class SystemMapperService {
     dto.edition = entity.edition;
     dto.publisher = entity.publisher;
     dto.description = entity.description;
+    dto.releaseDate = entity.releaseDate;
     return dto;
   }
 }
