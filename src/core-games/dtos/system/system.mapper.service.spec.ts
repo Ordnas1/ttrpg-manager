@@ -23,6 +23,7 @@ describe('SystemMapperService', () => {
       edition: '5th Edition',
       publisher: 'Wizards of the Coast',
       description: 'A tabletop RPG system',
+      releaseDate: new Date('2014-07-15'),
     };
 
     const expectedDTO = {
@@ -31,6 +32,7 @@ describe('SystemMapperService', () => {
       edition: '5th Edition',
       publisher: 'Wizards of the Coast',
       description: 'A tabletop RPG system',
+      releaseDate: new Date('2014-07-15'),
     };
 
     const result = service.entityToGetSystemDTO(systemEntity);

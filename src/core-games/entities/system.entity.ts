@@ -5,8 +5,11 @@ export class System {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column()
+  @Column({ length: 255 })
   name!: string;
+
+  @Column('date')
+  releaseDate!: Date;
 
   @Column({ nullable: true })
   edition?: string;
@@ -14,6 +17,6 @@ export class System {
   @Column({ nullable: true })
   publisher?: string;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, type: 'text' })
   description?: string;
 }
