@@ -20,7 +20,9 @@ import { AuthModule } from './auth/auth.module';
       autoLoadEntities: true,
     }),
     UsersModule,
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     AuthModule,
   ],
 })

@@ -1,9 +1,14 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../entities/user.entity';
 import { Repository } from 'typeorm';
 import { GetUserDTO } from '../dto/user.output';
 import { UserMapperService } from '../dto/user.mapper.service';
+import { CreateUserDTO } from '../dto/user.input';
 
 @Injectable()
 export class UsersService {
@@ -18,5 +23,37 @@ export class UsersService {
       return this.userMapperService.mapUserEntityToGetUserDTO(user);
     }
     return null;
+  }
+
+  async findByUsernameAndReturnEntity(username: string): Promise<User | null> {
+    return this.usersRepository.findOneBy({ username });
+  }
+
+  async create(
+    createUserDTO: CreateUserDTO,
+    hashedPassword: string,
+  ): Promise<void> {
+    const existingUser = await this.usersRepository.findOneBy({
+      username: createUserDTO.username,
+    });
+
+    if (existingUser) {
+      throw new BadRequestException('Username already exists');
+    }
+
+    const userEntity = this.userMapperService.mapCreateUserDTOToUserEntity(
+      createUserDTO,
+      hashedPassword,
+    );
+
+    try {
+      await this.usersRepository.save(userEntity);
+    } catch (error) {
+      const exception = new InternalServerErrorException(
+        'Failed to create user',
+      );
+      if (error instanceof Error) exception.cause = error;
+      throw exception;
+    }
   }
 }
